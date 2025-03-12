@@ -76,7 +76,7 @@ void imprimir_decrescente(LDDE *lista){
 
     // Imprimir a lista de trás para frente
     while(atual != NULL){
-		printf("%d ", atual->valor);
+		printf("%d ", atual->valor); 
 		atual = atual->anterior;
 	}
 	printf("\n");
