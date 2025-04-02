@@ -65,7 +65,7 @@ int main(){
     printf("Fila Estática\n");
 
     Fila fila; //cria a fila
-    inicializa(&fila); //enereço da lista
+    inicializa(&fila); //endereço da lista
     inserir(&fila, 'a');
     imprimir(&fila);
     inserir(&fila, 'b');

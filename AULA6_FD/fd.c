@@ -34,8 +34,8 @@ void enqueue(Fila *fila, int valor){
     if(fila -> qtd == 0){
         fila -> head = nova;
     } else{
-        fila -> tail -> proximo = nova;
         nova -> anterior = fila -> tail;
+        fila -> tail -> proximo = nova;
     }
     fila -> tail = nova;
     fila -> qtd++;
@@ -47,10 +47,10 @@ int dequeue(Fila *fila){
     }
     int valor = fila -> head -> valor;
     Celula *aux = fila -> head;
-    if(fila -> qtd == 1){
+    if(fila -> qtd == 1){ //so um valor
         fila -> head = NULL;
         fila -> tail = NULL;
-    } else{
+    } else{ //o primeiro valor
         fila -> head -> proximo = NULL;
         fila -> head = fila -> head -> proximo;
     }

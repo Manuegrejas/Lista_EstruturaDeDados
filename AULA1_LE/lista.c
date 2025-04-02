@@ -1,4 +1,4 @@
-#include <stdio.h>
+ #include <stdio.h>
 
 #define LEN 10  //define variavel estática de tamanho do vetor
 
