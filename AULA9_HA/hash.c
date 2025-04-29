@@ -53,19 +53,19 @@ int buscar(Hash* hash, int valor){
         while(atual != NULL && atual -> valor != valor){
             atual = atual -> proximo;
         }
-    if(atual == NULL){
-        printf("Valor não encontrado");
-        return -1;
-    } else{
-        printf("Valor encontrado");
-        return; 
+        if(atual == NULL){
+            printf("Valor não encontrado");
+            return -1;
+        } else{
+            printf("Valor encontrado");
+            return; 
+        }
+    free(atual);
     }
-
-   free(atual);
 }
 
 int remover(Hash* hash, int valor){
-    for(i = 0; i < LEN; i++){
+    for(int i = 0; i < LEN; i++){
         Celula* atual = hash -> table[i] -> inicio;
         Celula* anterior = NULL;
         while(atual != NULL){
