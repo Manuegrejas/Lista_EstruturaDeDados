@@ -14,12 +14,54 @@ typedef struct Arvore {
 } Arvore;
 
 void RotacaoEsquerda(Arvore *arvore, Vertice *x) {
-  // implementar
+  Vertice *y = x -> dir;
+
+  x -> dir = y -> esq;
+
+  if(y -> esq != NULL){
+    y -> esq -> pai = x;
+  }
+
+  y -> pai = x -> pai;
+
+  if(x -> pai == NULL){
+    arvore -> raiz = y;
+  } else if(x == x -> pai -> esq){
+    x -> pai -> esq = y;
+  } else{
+    x -> pai -> dir = y;
+  }
+  y -> esq = x;
+  x -> pai = y;
+  printf("Esquerda em %d\n", x -> valor);
 }
 
 void RotacaoDireita(Arvore *arvore, Vertice *x) {
-  // implementar
-}
+  Vertice *y = x->esq;
+  
+  x->esq = y->dir;
+  
+  if (y->dir != NULL) {
+  y->dir->pai = x;
+  }
+  
+  y->pai = x->pai;
+  
+  if (x->pai == NULL) {
+  arvore->raiz = y;
+  }
+  else if (x == x->pai->dir) {
+  x->pai->dir = y;
+  }
+  else {
+  x->pai->esq = y;
+  }
+  
+  y->dir = x;
+  x->pai = y;
+  
+  printf("Direita em %d\n", x->valor);
+  }
 
 int MAX(int x, int y) {
   if (x >= y)
@@ -38,7 +80,27 @@ int altura(Vertice *x) {
 int fatorBalanceamento(Vertice *x) { return altura(x->dir) - altura(x->esq); }
 
 void balanceie(Arvore *arvore, Vertice *x) {
-  // implementar
+  int fb = fatorBalanceamento(x);
+
+  if (fb == 2){
+    if (fatorBalanceamento(x -> dir) < 0){
+      RotacaoDireita(arvore, x -> dir);
+    }
+    RotacaoEsquerda(arvore, x);
+  } 
+  else if(fb == -2){
+    if (fatorBalanceamento(x -> esq) > 0){
+      RotacaoEsquerda(arvore, x -> esq);
+    }
+    RotacaoDireita(arvore, x);
+  }
+  if(fb > 1 || fb < -1){
+    if (x -> pai != NULL){
+      balanceie(arvore, x -> pai);
+    } else{
+      arvore -> raiz = x;
+    }
+  } 
 }
 
 int insere(Arvore *arvore, int valor) {
