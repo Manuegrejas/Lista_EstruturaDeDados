@@ -8,31 +8,32 @@ typedef struct {
   int qtde;
 } heap;
 
-int filho_esq(int pai) { 
+int filho_esq(int pai) { //consegue o indice do filho esq pelo indice do pai
     int fe = 2*pai + 1;
     return fe;
 }
 
-int filho_dir(int pai) { 
+int filho_dir(int pai) { //consegue o indice do filho dir pelo indice do pai
     int fd = 2*pai + 2;
     return fd;
 }
 
-int pai(int filho) { 
+int pai(int filho) { //consegue o indice do paio pelo indice do no
     int p = (filho - 1)/2;
     return p;
 }
 
-int ultimo_pai(heap *h) { 
+int ultimo_pai(heap *h) { //indice do ultimo pai
     int up = ((h->qtde)/2) - 1;
     return up;
 }
 
 void peneirar(heap *h, int pai) {
-    int esq = filho_esq(pai);
-    int dir = filho_dir(pai);
-    int maior = pai;
+    int esq = filho_esq(pai);   // índice do filho esquerdo
+    int dir = filho_dir(pai);   // índice do filho direito
+    int maior = pai;    // índice do pai
     
+    //(esq < h->qtde)O índice do filho esquerdo ainda está dentro da parte válida da heap?
     if (esq < h->qtde && h->valores[esq] > h->valores[maior]){ //indice
         maior = esq;
     }
@@ -40,10 +41,11 @@ void peneirar(heap *h, int pai) {
         maior = dir;
     }
     if (maior != pai){
+        // Troca os VALORES entre os índices
         int temp = h->valores[pai];
         h->valores[pai] = h->valores[maior];
         h->valores[maior] = temp;
-        peneirar(h, maior);
+        peneirar(h, maior); // Continua descendo
     }
 }
 
