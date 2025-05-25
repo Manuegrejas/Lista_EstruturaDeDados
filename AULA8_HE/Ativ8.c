@@ -28,23 +28,24 @@ int ultimo_pai(heap *h) { //indice do ultimo pai
     return up;
 }
 
-void peneirar(heap *h, int pai) {
+//peneirar para baixo
+void peneirar(heap *h, int pai) { //"1°" pai a entrar é o ultimo pai 
     int esq = filho_esq(pai);   // índice do filho esquerdo
     int dir = filho_dir(pai);   // índice do filho direito
     int maior = pai;    // índice do pai
     
     //(esq < h->qtde)O índice do filho esquerdo ainda está dentro da parte válida da heap?
-    if (esq < h->qtde && h->valores[esq] > h->valores[maior]){ //indice
+    if (esq < h->qtde && h->valores[esq] > h->valores[maior]){ //valor do filho esq maior que o pai
         maior = esq;
     }
-    if (dir < h->qtde && h->valores[dir] > h->valores[maior]){
+    if (dir < h->qtde && h->valores[dir] > h->valores[maior]){ //valor do filho dir maior que o pai
         maior = dir;
     }
     if (maior != pai){
         // Troca os VALORES entre os índices
-        int temp = h->valores[pai];
-        h->valores[pai] = h->valores[maior];
-        h->valores[maior] = temp;
+        int temp = h->valores[pai]; //variavel para guardar o pai (menor valor)
+        h->valores[pai] = h->valores[maior]; //o filho se torna o pai
+        h->valores[maior] = temp; //o pai se torna o filho
         peneirar(h, maior); // Continua descendo
     }
 }
@@ -58,7 +59,8 @@ void mostrar(heap *h) {
 }
 
 void construir(heap *h) {
-    for (int i = ultimo_pai(h); i >= 0; i--){
+    //corrige os nós de baixo para cima.
+    for (int i = ultimo_pai(h); i >= 0; i--){ 
         peneirar(h, i);
     }
 }

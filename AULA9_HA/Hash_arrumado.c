@@ -44,23 +44,21 @@ void inserir_hash(Hash* hash, int valor){
 
 void remover_hash(Hash* hash, int valor){
     int pos = valor % tam_hash; //descobrir a posição da célula
-    int i;
-    for(i = 0; i < tam_hash; i++){
-        Celula* atual = hash -> table[i] -> inicio;
-        Celula* anterior = NULL;
-        while(atual != NULL){
-            if(atual -> valor == valor){  
-                if(anterior == NULL){ //primeiro da lista
-                    hash -> table[pos]-> inicio = atual->proximo;
-                } else{ //meio da lista
-                    anterior->proximo = atual->proximo;
-                }
-                free(atual);
-                return;
-            } else{
-                anterior = atual;
-                atual = atual -> proximo;
+    
+    Celula* atual = hash -> table[pos] -> inicio;
+    Celula* anterior = NULL;
+    while(atual != NULL){
+        if(atual -> valor == valor){  
+            if(anterior == NULL){ //primeiro da lista
+                hash -> table[pos]-> inicio = atual->proximo;
+            } else{ //meio da lista
+                anterior->proximo = atual->proximo;
             }
+            free(atual);
+            return;
+        } else{
+            anterior = atual;
+            atual = atual -> proximo;
         }
     }
 }
